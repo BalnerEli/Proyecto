@@ -5,38 +5,6 @@
 // Description:
 // =========================================================
 
-#ifndef VOXOPERATOR_H
-#define VOXOPERATOR_H
-
-#include "operator.h"
-
-//Clase VoxOperator, deriva de la clase Operatoe
-class VoxOperator : public Operator {
-
-	//Metodos
-	public:
-		
-		//Constructorees
-		VoxOperator(){}
-		VoxOperator(int, double, double, double, double, OperatorType);
-		VoxOperator(const VoxOperator&);
-
-		//Calculamos 
-		double calculateTalkingCost(int, int);
-		double calculateMessageCost(int, int, int);
-		double calculateNetworkCost(double);
-};
-
-VoxOperator::VoxOperator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge…
-[4:09 p. m., 18/6/2022] Gonzalo Chavez: VoxOperator
-[4:09 p. m., 18/6/2022] Gonzalo Chavez: #pragma once
-// =========================================================
-// File: vox.h
-// Author:
-// Date:
-// Description:
-// =========================================================
-
 #ifndef InternetOperator_H
 #define InternetOperator_H
 
