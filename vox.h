@@ -10,55 +10,75 @@
 
 #include "operator.h"
 
+//Clase VoxOperator, deriva de la clase Operatoe
 class VoxOperator : public Operator {
-public:
-  VoxOperator(int, double, double, double, int, OperatorType);
-  VoxOperator(const VoxOperator&);
 
-  double calculateTalkingCost(int, int);
-  double calculateMessageCost(int, int, int);
-  double calculateNetworkCost(double);
+	//Metodos
+	public:
+		
+		//Constructorees
+		VoxOperator(){}
+		VoxOperator(int, double, double, double, double, OperatorType);
+		VoxOperator(const VoxOperator&);
+
+		//Calculamos 
+		double calculateTalkingCost(int, int);
+		double calculateMessageCost(int, int, int);
+		double calculateNetworkCost(double);
 };
 
-VoxOperator::VoxOperator(int i, double t, double mC, double nC, int dR, OperatorType ty)
-	: Operator(i, t, mC, nC, dR, ty, VOXOPERATOR) {
+VoxOperator::VoxOperator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, OperatorType type): 
+	Operator(id, discountRate, talkingCharge, messageCost, networkCharge, type) {
 
 }
 
 VoxOperator::VoxOperator(const VoxOperator& other)
-	: Operator(other.id, other.talkingCharge, other.networkCharge, other.discountRate, other.type, other.totalSpentTalkingTime, other.totalMessageSent, other.totalInternetUsage) {
+	: Operator(other) {
 
 }
 
 double VoxOperator::calculateTalkingCost(int minute, int age) {
-	double cost = 0;
-	if (minute < 0 && age < 0) {
-		cost = minute*talkingCharge;
-		if (age < 18 || age > 65) {
-			cost = cost*(cost-discountRate/100);
-		}
+
+	if (minute < 0 and age < 0) {
+
+		return 0.0;
+
+	}else if (age < 18 or age > 65) {
+			
+		return (talkingCharge * minute) - ((talkingCharge * minute) * discountRate);
 	}
-	return cost;
+	
 }
 
-double VoxOperator::double calculateMessageCost(int quantity, int thisOpId, int otherOpId) {
-	double cost = 0;
-	if (quantity < 0) {
-		cost = quantity*messageCost;
-		if (thisOpId == otherOpId) {
-			cost=cost*(cost-discountRate/100);
-		}
+double VoxOperator::calculateMessageCost(int quantity, int thisOpId, int otherOpId) {
+	
+	if (quantity < 0.0) {
+
+		return 0.0;
+
+	}else if (thisOpId == otherOpId) {
+			
+		return (messageCost * quantity) - ((messageCost * quantity) * discountRate);
+	
+	}else {
+
+		return messageCost * quantity;
+
 	}
-	return cost;
-}
+	
+
 }
 
-void VoxOperator::calculateNetworkCost(double amount) {
-	double cost = 0;
-	if (amount > 0) {
-		cost = amount*networkCharge;
+double VoxOperator::calculateNetworkCost(double amount) {
+	
+	if (totalInternetUsage > 0.0) {
+
+		amount =  totalInternetUsage * networkCharge;
+	
 	}
-	return cost;
+
+	return amount;
+
 }
 
 #endif
