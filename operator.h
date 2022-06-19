@@ -2,7 +2,7 @@
 // File: operator.h
 // Author: Eliuth Balderas Neri
 // Date: 18/06/2022
-// Description: This file implements the class Operator, which is derived from Operator class
+// Description: This file implements the class Operator
 // =========================================================
 
 #ifndef OPERATOR_H
