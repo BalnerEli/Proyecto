@@ -1,8 +1,8 @@
 // =========================================================
 // File: internet.h
-// Author:
-// Date:
-// Description:
+// Author: Eliuth Balderas Neri
+// Date: 18/06/2022
+// Description: This file implements the class InternetOperator
 // =========================================================
 
 #ifndef InternetOperator_H
