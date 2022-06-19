@@ -31,6 +31,7 @@ class Customer {
 
 		//Constructores y destructor
 		Customer();
+		Customer(std::string, int, int, int);
 		Customer(int, std::string, int, int, int, Operator*, Bill*);
 		Customer(const Customer&);
 		~Customer();
@@ -60,6 +61,16 @@ class Customer {
 Customer::Customer(){
 	
 	bill = new Bill();
+
+}
+
+Customer::Customer(std::string name, int age, int id, int limite) {
+
+	this->name = name;
+	this->age = age;
+	op->setId(id);
+	bill->setLimite(limite);
+
 
 }
 
@@ -118,7 +129,7 @@ int Customer::getAge() const {
 
 int Customer::getTotalSpentTalkingTime() const {
 	
-	return totalSpentTalkingTime;
+	return 0;
 }
 
 double Customer::getTotalMessageSent() const {
@@ -164,7 +175,7 @@ void Customer::talk(int minutes, Customer& other) {
 
 void Customer::message(int quantity, const Customer& other) {
 	
-	int total = 0;
+	double total = 0.0;
 
 	if (quantity > 0 && other.getId() != id) {
 	
