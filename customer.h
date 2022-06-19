@@ -1,8 +1,8 @@
 // =========================================================
 // File: customer.h
-// Author: 
+// Author: Eliuth Balderas Neri
 // Date: 18/06/2022
-// Description:
+// Description: This file implements the class customer 
 // =========================================================
 #ifndef CUSTOMER_H
 #define CUSTOMER_H
