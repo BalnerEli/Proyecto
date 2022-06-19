@@ -71,7 +71,13 @@ class Operator {
 };
 
 //Constructor por defecto
-Operator::Operator(){}
+Operator::Operator(){
+
+    totalSpentTalkingTime = 0.0;
+    totalMessageSent = 0.0;
+    totalInternetUsage = 0.0;
+
+}
 
 //Constructor con parametros
 Operator::Operator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, int type) {
