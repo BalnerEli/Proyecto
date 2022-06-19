@@ -1,4 +1,4 @@
-// =========================================================
+=========================================================
 // File: operator.h
 // Author:
 // Date:
@@ -192,7 +192,7 @@ std::string Operator::toString() const {
     aux << "Operator" << id << ":"
         << std::fixed << std::setprecision(2) << totalSpentTalkingTime << ": "
         << std::fixed << std::setprecision(2) << totalMessageSent << ": "
-        << std::fixed << std::setprecision(2) << addTotalInternetUsage << ": ";
+        << std::fixed << std::setprecision(2) <<": ";
 
         return aux.str();
 }
