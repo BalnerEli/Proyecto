@@ -22,8 +22,11 @@ class InternetOperator : public Operator {
 	public:
 		
 		//Constructorees
-		InternetOperator(int, double, double, double, double, OperatorType);
+		InternetOperator(int, double, double, double, double, int);
 		InternetOperator(const InternetOperator&);
+
+		//
+		std::string toString();
 
 		//Calculamos
 		double calculateTalkingCost(int, int);
@@ -31,7 +34,7 @@ class InternetOperator : public Operator {
 		double calculateNetworkCost(double);
 };
 
-InternetOperator::InternetOperator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, OperatorType type)
+InternetOperator::InternetOperator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, int type)
 	: Operator(id, discountRate, talkingCharge, messageCost, networkCharge, type) {
 
 }
@@ -91,5 +94,16 @@ double InternetOperator::calculateNetworkCost(double amount) {
 
 	return amount;
 }
-	
+
+std::string InternetOperator::toString() {
+
+	std::stringstream aux;
+
+	aux << "Operator: " << id << ": " << std::fixed << std::setprecision(2) << totalSpentTalkingTime << ": "
+		<< std::fixed << std::setprecision(2) << totalMessageSent << ": "
+		<< std::fixed << std::setprecision(2) << ": ";
+
+	return aux.str();
+}
+
 #endif
