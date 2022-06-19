@@ -18,8 +18,10 @@ class VoxOperator : public Operator {
 		
 		//Constructorees
 		VoxOperator(){}
-		VoxOperator(int, double, double, double, double, OperatorType);
+		VoxOperator(int, double, double, double, double, int);
 		VoxOperator(const VoxOperator&);
+		
+		std::string toString();
 
 		//Calculamos 
 		double calculateTalkingCost(int, int);
@@ -27,7 +29,7 @@ class VoxOperator : public Operator {
 		double calculateNetworkCost(double);
 };
 
-VoxOperator::VoxOperator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, OperatorType type): 
+VoxOperator::VoxOperator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, int type): 
 	Operator(id, discountRate, talkingCharge, messageCost, networkCharge, type) {
 
 }
@@ -79,6 +81,17 @@ double VoxOperator::calculateNetworkCost(double amount) {
 
 	return amount;
 
+}
+
+std::string VoxOperator::toString(){
+
+	std::stringstream aux;
+
+	aux << "Operator: " << id << ": " << std::fixed << std::setprecision(2) << totalSpentTalkingTime << ": "
+		<< std::fixed << std::setprecision(2) << totalMessageSent << ": "
+		<< std::fixed << std::setprecision(2) << ": ";
+
+	return aux.str();
 }
 
 #endif
