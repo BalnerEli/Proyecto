@@ -26,20 +26,22 @@ int main(int argc, char* argv[]) {
 
     ifstream inputFile;
     ofstream outputFile;
-/*
-    if (argc != 3) {
-        
-        cout << "usage: " << argv[0] << " input_file output_file\n";
-        
-     
-     return -1;
-    }
-    */
 
-    inputFile.open(argv[1]);
+    inputFile.open("input0.txt", ios::in);
     
-    outputFile.open(argv[2]);
+    if (!inputFile.is_open()) {
+
+        return -1;
+    }
+
+    outputFile.open("output.txt", ios::out);
     
+    if (!outputFile.is_open()) {
+
+        return -1;
+
+    }
+
     int C, O, N;
 
     inputFile >> C >> O >> N;
@@ -50,8 +52,8 @@ int main(int argc, char* argv[]) {
     Bill* bill = nullptr;
     Operator* op;
    
-    double discountRate, type,time, quantity, talkingCharge, messageCost, networkCharge, amount, limite;
-    int idCustomer1, idCustomer2, id, age, totalSpentTalkingTime, totalInternetUsage;
+    double discountRate, time,  talkingCharge, messageCost, networkCharge, amount, limite;
+    int idCustomer1, idCustomer2, type, id, quantity, age, totalSpentTalkingTime, totalInternetUsage;
     string name;
     int option;
 
@@ -59,7 +61,7 @@ int main(int argc, char* argv[]) {
 
     inputFile >> option;
     
-    for (int i = 0; i < N; i++) {
+//    for (int i = 0; i < N; i++) {
 
         switch (option) {
 
@@ -67,11 +69,12 @@ int main(int argc, char* argv[]) {
 
             inputFile >> id >> name >> age >> time >> discountRate >> talkingCharge >> messageCost >> networkCharge >> type >> limite;
 
-            total++;
-
             op = new VoxOperator(id, discountRate, talkingCharge, messageCost, networkCharge, type);
 
             bill = new Bill(limite);
+            
+
+            total++;
 
             customers[total] = new Customer(id, name, age, 0, 0, op, bill);
 
@@ -157,49 +160,48 @@ int main(int argc, char* argv[]) {
         }
 
 
-    }
+    //}
 
+      /*
     for (int i = 0; i < total1; i++) {
             
-        cout << operators[i]->toString() << endl;
+        outputFile << operators[i]->toString() << endl;
         
     }
+    */
     
-    Customer* mostTalk = *(customers.begin()), * mostMess = *(customers.begin()), * mostGb = *(customers.begin());
-        
-    vector<Customer*>::iterator itrC;
+    Customer *custo1 = nullptr, *custo2 = nullptr, *custo3 = nullptr;
 
-        
-    for (itrC = customers.begin(); itrC != customers.end(); itrC++) {
+    for (int i = 0; i < total; i++) {
             
-       outputFile << (*itrC)->toString() << endl;
+       outputFile << customers[i]->toString() << endl;
 
             
-        if (mostTalk->getTotalSpentTalkingTime() < (*itrC)->getTotalSpentTalkingTime()) {
+        if (custo1->getTotalSpentTalkingTime() < customers[i]->getTotalSpentTalkingTime()) {
                 
-            mostTalk = (*itrC);
+            custo1 = customers[i];
             
         }
             
-        if (mostMess->getTotalMessageSent() < (*itrC)->getTotalMessageSent()) {
+        if (custo2->getTotalMessageSent() < customers[i]->getTotalMessageSent()) {
                 
-            mostMess = (*itrC);
+            custo2 = customers[i];
             
         }
             
-        if (mostGb->getTotalInternetUsage() < (*itrC)->getTotalInternetUsage()) {
+        if (custo3->getTotalInternetUsage() < customers[i]->getTotalInternetUsage()) {
                 
-            mostGb = (*itrC);
+            custo3 = customers[i];
             
         }
         
     }
             
-    outputFile << (mostTalk)->getName() << ": " << (mostTalk)->getTotalSpentTalkingTime() << endl;
+    outputFile << custo1->getName() << ": " << custo1->getTotalSpentTalkingTime() << endl;
         
-    outputFile << (mostMess)->getName() << ": " << (mostMess)->getTotalMessageSent() << endl;
+    outputFile << custo2->getName() << ": " << custo2->getTotalMessageSent() << endl;
         
-    outputFile << (mostGb)->getName() << ": " << fixed << setprecision(2) << (mostGb)->getTotalInternetUsage() << endl;
+    outputFile << custo3->getName() << ": " << fixed << setprecision(2) << custo3->getTotalInternetUsage() << endl;
     
     outputFile.close();
     
@@ -219,4 +221,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
