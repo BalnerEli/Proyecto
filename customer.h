@@ -31,10 +31,12 @@ class Customer {
 
 		//Constructores y destructor
 		Customer();
-		Customer(int, std::string, int);
 		Customer(int, std::string, int, int, int, Operator*, Bill*);
 		Customer(const Customer&);
 		~Customer();
+
+		//Establecer datos
+		void setOperator(int);
 
 		//Obtener datos
 		void addMessage(double);
@@ -49,7 +51,7 @@ class Customer {
 		Bill* getBill() const;
 
 		//Operaciones
-		std::string toString() const;
+		std::string toString();
 		void talk(int, Customer&);
 		void message(int, const Customer&);
 		void connection(double);
@@ -59,13 +61,6 @@ Customer::Customer(){
 	
 	bill = new Bill();
 
-}
-
-Customer::Customer(int id, std::string name, int age) {
-
-	this->id = id;
-	this->name = name;
-	this->age = age;
 }
 
 Customer::Customer(int id, std::string name, int age, int totalSpentTalkingTime, int totalInternetUsage, Operator* op, Bill* bill) {
@@ -91,6 +86,12 @@ Customer::Customer(const Customer& other) {
 Customer::~Customer() {
 	
 	delete bill;
+}
+
+void Customer::setOperator(int id) {
+
+	op->setId(id);
+
 }
 
 void Customer::addMessage(double totalMessageSent) {
@@ -199,11 +200,11 @@ void Customer::connection(double amount) {
 
 }
 
-std::string Customer::toString() const {
+std::string Customer::toString() {
 	
 	std::stringstream aux;
 
-	aux << "Customer # " << id << ":" << "totalMoneySpend:" << bill->getTotalMoneySpent() << "currentDebt:" << bill->getCurrentDebt() << std::endl;
+	aux << "Customer # " << getId() << ":" << std::endl;
 	
 	return aux.str();
 }
