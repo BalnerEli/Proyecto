@@ -1,13 +1,3 @@
-//
-// =========================================================
-// File: main.cpp
-// Author: Eliuth Balderas Neri
-// Date: 18/06/2022
-// Description: This is the implementation of the main file, in which other functions are implemented
-// To compile: g++ -std=c++11 main.cpp -o app
-// To execute: ./app input_file output_file
-// =========================================================
-//
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -53,7 +43,7 @@ int main(int argc, char* argv[]) {
     Operator* op;
    
     double discountRate, time,  talkingCharge, messageCost, networkCharge, amount, limite;
-    int idCustomer1, idCustomer2, type, id, quantity, age, totalSpentTalkingTime, totalInternetUsage;
+    int idCustomer1, idCustomer2, type, id, quantity, age, totalSpentTalkingTime, totalInternetUsage, operatorId;
     string name;
     int option;
 
@@ -67,16 +57,14 @@ int main(int argc, char* argv[]) {
 
         case 1:
 
-            inputFile >> id >> name >> age >> time >> discountRate >> talkingCharge >> messageCost >> networkCharge >> type >> limite;
-
-            op = new VoxOperator(id, discountRate, talkingCharge, messageCost, networkCharge, type);
+            inputFile >> name >> age >> operatorId >> limite;
 
             bill = new Bill(limite);
             
 
             total++;
 
-            customers[total] = new Customer(id, name, age, 0, 0, op, bill);
+            customers[total] = new Customer(name, age, operatorId, limite);
 
             break;
 
@@ -160,7 +148,6 @@ int main(int argc, char* argv[]) {
         }
 
 
-    //}
 
       /*
     for (int i = 0; i < total1; i++) {
@@ -169,7 +156,7 @@ int main(int argc, char* argv[]) {
         
     }
     */
-    
+    /*
     Customer *custo1 = nullptr, *custo2 = nullptr, *custo3 = nullptr;
 
     for (int i = 0; i < total; i++) {
@@ -202,7 +189,18 @@ int main(int argc, char* argv[]) {
     outputFile << custo2->getName() << ": " << custo2->getTotalMessageSent() << endl;
         
     outputFile << custo3->getName() << ": " << fixed << setprecision(2) << custo3->getTotalInternetUsage() << endl;
-    
+ 
+    */
+    string texto;
+
+    while (!inputFile.eof()) {
+
+        getline(inputFile, texto);
+
+        cout << texto << endl;
+
+    }
+
     outputFile.close();
     
     inputFile.close();
