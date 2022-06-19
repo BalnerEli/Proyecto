@@ -14,149 +14,209 @@
 #include <iomanip>
 #include <fstream>
 #include <vector>
-#include "bill.h"
-#include "operator.h"
-#include "vox.h"
-#include "internet.h"
-#include "customer.h"
+#include "Bill.h"
+#include "Operator.h"
+#include "VoxOperator.h"
+#include "InternetOperator.h"
+#include "Customer.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
+
     ifstream inputFile;
     ofstream outputFile;
-
-    int C, O, N, inp, opId, age, discountRate, type, idCustomer1, idCustomer2, time, quantity;
-    double limitingAmount, talkingCharge, messageCost, networkCharge, amount;
-    string name;
-    int j = 0, k = 0;
-
+/*
     if (argc != 3) {
+        
         cout << "usage: " << argv[0] << " input_file output_file\n";
-        return -1;
+        
+     
+     return -1;
     }
+    */
 
     inputFile.open(argv[1]);
-    if (!inputFile.is_open()) {
-        cout << argv[0] << ": File \"" << argv[1] << "\" not found\n";
-        return -1;
-    }
-
+    
     outputFile.open(argv[2]);
+    
+    int C, O, N;
 
-  
     inputFile >> C >> O >> N;
 
     vector<Customer*> customers(C);
-    vector<Operator*> operators(0);
+    vector<Operator*> operators(O);
 
+    Bill* bill = nullptr;
+    Operator* op;
+   
+    double discountRate, type,time, quantity, talkingCharge, messageCost, networkCharge, amount, limite;
+    int idCustomer1, idCustomer2, id, age, totalSpentTalkingTime, totalInternetUsage;
+    string name;
+    int option;
 
+    int total = 0, total1 = 0;
+
+    inputFile >> option;
+    
     for (int i = 0; i < N; i++) {
-        inputFile >> inp;
-        switch (inp) {
+
+        switch (option) {
+
         case 1:
-            inputFile >> name >> age >> operatorId >> limitingAmount;
-            customers[customer] = new Customer(customer, name, age, operators[opId], limit);
-            customer++;
+
+            inputFile >> id >> name >> age >> time >> discountRate >> talkingCharge >> messageCost >> networkCharge >> type >> limite;
+
+            total++;
+
+            op = new VoxOperator(id, discountRate, talkingCharge, messageCost, networkCharge, type);
+
+            bill = new Bill(limite);
+
+            customers[total] = new Customer(id, name, age, 0, 0, op, bill);
+
             break;
 
         case 2:
-            inputFile >> type >> talkingCharge >> messageCost >> networkCharge >> discountRate;
+
+            inputFile >> id >> talkingCharge >> messageCost >> networkCharge >> discountRate >> type;
+
             if (type == 1) {
-                operators[op)] = (new VoxOperator(op, talking_charge, message_cost, network_charge, discount_rate, VOX));
-                op;
+
+                total1++;
+
+                operators[total1] = new VoxOperator(id, talkingCharge, messageCost, networkCharge, discountRate, VOX);
+
             }
-            else if (type == 2) {
-                operators[op] = (new InternetOperator(op, talking_charge, message_cost, network_charge, discount_rate, VOX));
-                op++;
+            else {
+
+                total1++;
+
+                operators[total1] = new InternetOperator(id, talkingCharge, messageCost, networkCharge, discountRate, INTERNET);
+
             }
+
             break;
 
         case 3:
+
             inputFile >> idCustomer1 >> idCustomer2 >> time;
-            customers[idCustomer1]->talk(minutes, *customers(idCustomer2));
+
+
+            customers[idCustomer1]->talk(time, *customers[idCustomer2]);
+
             break;
 
         case 4:
+
             inputFile >> idCustomer1 >> idCustomer2 >> quantity;
-            customers[idCustomer1]->message(quantity, *customers(idCustomer2));
+
+
+            customers[idCustomer1]->message(quantity, *customers[idCustomer2]);
+
             break;
+
 
         case 5:
+
             inputFile >> idCustomer1 >> amount;
-            customers(idCustomer1)->connection(amount);
+
+
+            customers[idCustomer1]->connection(amount);
+
             break;
 
+
         case 6:
+
             inputFile >> idCustomer1 >> amount;
-            customers[idCustomer]->pay(amount);
+
+            customers[idCustomer1]->getBill()->pay(amount);
+
             break;
 
         case 7:
-            inputFile >> idCustomer1 >> idOperator;
-            customers[idCustomer1]->setOperator(operators(opId));
+
+            inputFile >> idCustomer1 >> id;
+
+
+            customers[idCustomer1]->setOperator(id);
+
             break;
+
 
         case 8:
+
             inputFile >> idCustomer1 >> amount;
+
+
             customers[idCustomer1]->getBill()->changeTheLimit(amount);
-        default:
+
             break;
+
+        }
+
+
+    }
+
+    for (int i = 0; i < total1; i++) {
+            
+        cout << operators[i]->toString() << endl;
+        
+    }
+    
+    Customer* mostTalk = *(customers.begin()), * mostMess = *(customers.begin()), * mostGb = *(customers.begin());
+        
+    vector<Customer*>::iterator itrC;
+
+        
+    for (itrC = customers.begin(); itrC != customers.end(); itrC++) {
+            
+       outputFile << (*itrC)->toString() << endl;
+
+            
+        if (mostTalk->getTotalSpentTalkingTime() < (*itrC)->getTotalSpentTalkingTime()) {
+                
+            mostTalk = (*itrC);
             
         }
-    }
-
-    vector<Operator*>::iterator itr;
-    for (itr = operators.begin(); itr != operators.end(); itr++) {
-        outputFile << (*itr)->toString();
-
-    }
-
-    int mostTime = 0;
-    int mostMessages = 0;
-    int mostConnection = 0;
-
-    vector<Customer*>::iterator itr;
-    for (itr = customers.begin(); itr != customers.end(); itr++) {
-        outputFile << (*itr)->toString();
-
-        if ((*itr_c)->getTotalSpentTalkingTime() > mostTime) {
-            mostTime = (*itr_c)->getTotalSpentTalkingTime();
-            mostTime= (*itr_c)->getId();
+            
+        if (mostMess->getTotalMessageSent() < (*itrC)->getTotalMessageSent()) {
+                
+            mostMess = (*itrC);
+            
         }
-        if ((*itr_c)->getTotalMessageSent() > mostMessages) {
-            mostMessages = (*itr_c)->getTotalMessageSent();
-            mostMessages = (*itr_c)->getId();
+            
+        if (mostGb->getTotalInternetUsage() < (*itrC)->getTotalInternetUsage()) {
+                
+            mostGb = (*itrC);
+            
         }
-        if ((*itr_c)->getTotalInternetUsage() > mostConnection) {
-            mostConnection = (*itr_c)->getTotalInternetUsage();
-            mostConnection = (*itr_c)->getId();
-        }
-       
-
+        
     }
-    outputFile << customers[mostTime]->getName() << ": "<< customers[mostTime]->getTotalSpentTalkingTime() << "\n";
-
-    outputFile << customers[mostMessages]->getName() << ":"<< customers[mostMessages]->getTotalMessageSent() << "\n";
-
-    outputFile << customers[mostConnection]->getName() << ": "<< customers[mostConnection]->getTotalInternetUsage() << "\n";
-
-
-    inputFile.close();
+            
+    outputFile << (mostTalk)->getName() << ": " << (mostTalk)->getTotalSpentTalkingTime() << endl;
+        
+    outputFile << (mostMess)->getName() << ": " << (mostMess)->getTotalMessageSent() << endl;
+        
+    outputFile << (mostGb)->getName() << ": " << fixed << setprecision(2) << (mostGb)->getTotalInternetUsage() << endl;
+    
     outputFile.close();
-
-
-    for (int i = 0; i < customers.size(); ++i) {
-        delete customers[i];
-
-    for (int i = 0; i < operators.size(); ++i) {
+    
+    inputFile.close();
+    
+    for (int i = 0; i < operators.size(); i++) {
+       
         delete operators[i];
-    }
 
-    customers.clear();
-    operators.clear();
+    }
+        
+    for (int i = 0; i < customers.size(); i++) {
+     
+        delete customers[i];
+    
+    }
 
     return 0;
 }
-
 
