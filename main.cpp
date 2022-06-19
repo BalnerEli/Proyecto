@@ -1,3 +1,4 @@
+//
 // =========================================================
 // File: main.cpp
 // Author:
@@ -6,6 +7,7 @@
 // To compile: g++ -std=c++11 main.cpp -o app
 // To execute: ./app input_file output_file
 // =========================================================
+//
 #include <iostream>
 #include <string>
 #include <sstream>
