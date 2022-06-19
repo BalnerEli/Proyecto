@@ -23,6 +23,8 @@ class Bill {
         Bill();
         Bill(double);
         Bill(const Bill&);
+        
+        void setLimite(int);
 
         //Obtener valores
         double getLimitAmount() const;
@@ -61,6 +63,12 @@ Bill::Bill(const Bill& other) {
     limitAmount = other.limitAmount;
     currentDebt = other.currentDebt;
     totalMoneySpent = other.totalMoneySpent;
+}
+
+void Bill::setLimite(int limiteAmount) {
+
+    this->limitAmount = limiteAmount;
+
 }
 
 double Bill::getLimitAmount() const {
@@ -115,7 +123,7 @@ double Bill::changeTheLimit(double amount) {
 
         if (limitAmount > currentDebt) {
 
-            limitAmount += amount;
+            return limitAmount += amount;
 
         }
     }
