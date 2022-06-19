@@ -1,3 +1,10 @@
+=========================================================
+// File: operator.h
+// Author: Eliuth Balderas Neri
+// Date: 18/06/2022
+// Description: This file implements the main file in which other functions are implemented
+// =========================================================
+    
 #include <iostream>
 #include <string>
 #include <sstream>
