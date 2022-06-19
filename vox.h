@@ -1,8 +1,8 @@
 =========================================================
 // File: vox.h
-// Author:
-// Date:
-// Description:
+// Author: Eliuth Balderas Neri
+// Date: 18/06/2022
+// Description: This file implements the class VoxOperator, which is derived from Operator class
 // =========================================================
 
 #ifndef VOXOPERATOR_H
