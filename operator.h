@@ -30,15 +30,18 @@ class Operator {
         double totalSpentTalkingTime;
         double totalMessageSent;
         double totalInternetUsage;
-        OperatorType type;
+        int type;
 
     //Metodos
     public:
         
         //Constructores
         Operator();
-        Operator(int, double, double, double, double, OperatorType);
+        Operator(int, double, double, double, double, int);
         Operator(const Operator&);
+
+        //Setter de los atributos
+        void setId(int);
 
         //Getters de los atributos
         int getId() const;
@@ -49,7 +52,8 @@ class Operator {
         double getTotalSpentTalkingTime() const;
         double getTotalMessageSent() const;
         double getTotalInternetUsage() const;
-        OperatorType getType() const;
+        int getType() const;
+
 
         //Agregamos cantidades
         void addTalkingTime(int);
@@ -57,7 +61,7 @@ class Operator {
         void addTotalInternetUsage(double);
 
         //Mostrar datos
-        std::string toString() const;
+        virtual std::string toString() = 0;
 
         //Metodos abstractos
         virtual double calculateTalkingCost(int, int) = 0;
@@ -70,7 +74,7 @@ class Operator {
 Operator::Operator(){}
 
 //Constructor con parametros
-Operator::Operator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, OperatorType type) {
+Operator::Operator(int id, double discountRate, double talkingCharge, double messageCost, double networkCharge, int type) {
     
     this->id = id;
     this->discountRate = discountRate;
@@ -95,6 +99,12 @@ Operator::Operator(const Operator& other) {
     totalSpentTalkingTime = other.totalSpentTalkingTime;
     totalMessageSent = other.totalMessageSent;
     totalInternetUsage = other.totalInternetUsage;
+}
+
+void Operator::setId(int id) {
+
+    this->id = id;
+
 }
 
 //Obtenemos el valor del id
@@ -146,7 +156,7 @@ double Operator::getTotalInternetUsage() const {
 }
 
 //Obtenemos el valor del type
-OperatorType Operator::getType() const {
+int Operator::getType() const {
     
     return type;
 }
@@ -182,19 +192,6 @@ void Operator::addTotalInternetUsage(double amount) {
 
     }
 
-}
-
-//Mostramos los datos de la clase Operator
-std::string Operator::toString() const {
-
-    std::stringstream aux;
-
-    aux << "Operator" << id << ":"
-        << std::fixed << std::setprecision(2) << totalSpentTalkingTime << ": "
-        << std::fixed << std::setprecision(2) << totalMessageSent << ": "
-        << std::fixed << std::setprecision(2) <<": ";
-
-        return aux.str();
 }
 
 #endif
