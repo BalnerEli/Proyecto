@@ -1,9 +1,9 @@
 //
 // =========================================================
 // File: main.cpp
-// Author:
-// Date:
-// Description:
+// Author: Eliuth Balderas Neri
+// Date: 18/06/2022
+// Description: This is the implementation of the main file, in which other functions are implemented
 // To compile: g++ -std=c++11 main.cpp -o app
 // To execute: ./app input_file output_file
 // =========================================================
