@@ -1,8 +1,8 @@
 =========================================================
 // File: operator.h
-// Author:
-// Date:
-// Description:
+// Author: Eliuth Balderas Neri
+// Date: 18/06/2022
+// Description: This file implements the class Operator
 // =========================================================
 
 #ifndef OPERATOR_H
