@@ -1,8 +1,8 @@
 // =========================================================
 // File: bill.h
-// Author: 
+// Author: Eliuth Balderas Neri
 // Date: 18/06/2022
-// Description:
+// Description: This file implements the class Bill
 // =========================================================
 
 #ifndef BILL_H
