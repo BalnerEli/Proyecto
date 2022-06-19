@@ -1,4 +1,4 @@
-// =========================================================
+=========================================================
 // File: customer.h
 // Author: 
 // Date: 18/06/2022
@@ -19,7 +19,8 @@ class Customer {
 	//Atributos
 	private:
 	
-		int id, age, totalSpentTalkingTime, totalMessageSent;
+		int id, age, totalSpentTalkingTime;
+		double totalMessageSent;
 		double totalInternetUsage;
 		std::string name;
 		Operator* op;
@@ -29,18 +30,19 @@ class Customer {
 	public:
 
 		//Constructores y destructor
-		Customer() {}
+		Customer();
+		Customer(int, std::string, int);
 		Customer(int, std::string, int, int, int, Operator*, Bill*);
 		Customer(const Customer&);
 		~Customer();
 
 		//Obtener datos
-		void addMessage(int);
+		void addMessage(double);
 		void addNetwork(double);
 		int getId() const;
 		int getAge() const;
 		int getTotalSpentTalkingTime() const;
-		int getTotalMessageSent() const;
+		double getTotalMessageSent() const;
 		double getTotalInternetUsage() const;
 		std::string getName() const;
 		Operator* getOperator() const;
@@ -57,6 +59,13 @@ Customer::Customer(){
 	
 	bill = new Bill();
 
+}
+
+Customer::Customer(int id, std::string name, int age) {
+
+	this->id = id;
+	this->name = name;
+	this->age = age;
 }
 
 Customer::Customer(int id, std::string name, int age, int totalSpentTalkingTime, int totalInternetUsage, Operator* op, Bill* bill) {
@@ -84,7 +93,7 @@ Customer::~Customer() {
 	delete bill;
 }
 
-void Customer::addMessage(int totalMessageSent) {
+void Customer::addMessage(double totalMessageSent) {
 
 	this->totalMessageSent = totalMessageSent;
 
@@ -111,7 +120,7 @@ int Customer::getTotalSpentTalkingTime() const {
 	return totalSpentTalkingTime;
 }
 
-int Customer::getTotalMessageSent() const {
+double Customer::getTotalMessageSent() const {
 	
 	return totalMessageSent;
 }
